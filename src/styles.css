@@ -1,0 +1,106 @@
+body {
+  background-color: rgba(1, 123, 253, 0.1);
+}
+h1 {
+  line-height: 1;
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+ul {
+  padding-left: 0;
+  line-height: 1;
+}
+li {
+  list-style: none;
+}
+footer {
+  color: rgb(0 0 0 / 35%);
+}
+.container {
+  max-width: 720px;
+}
+.weather-app {
+  background-color: #fff;
+  border: 1px solid rgba(125, 125, 125, 0.25);
+  border-radius: 10px;
+  box-shadow: 5px 5px 30px -5px rgb(0 0 0 / 35%);
+  font-family: "Jost", sans-serif;
+  margin: 100px auto;
+  max-width: 620px;
+  padding: 20px 22px;
+}
+.col-1 {
+  padding-left: 0;
+  padding-right: 0;
+}
+.location-button {
+  position: relative;
+  left: 555px;
+  bottom: 38px;
+}
+.local-time-and-weather-description {
+  line-height: 1.2;
+  font-size: 15px;
+}
+.weather-today {
+  text-align: right;
+  padding-right: 0;
+}
+.fa-cloud,
+.fa-snowflake {
+  color: rgb(0 0 0 / 35%);
+}
+.overview-icon {
+  font-size: 40px;
+  position: relative;
+  bottom: 8px;
+}
+.local-temperature {
+  font-size: 55px;
+  position: relative;
+  bottom: 4px;
+}
+.temp-units {
+  font-size: 12px;
+  position: relative;
+  bottom: 35px;
+}
+.weather-conditions-divider {
+  font-size: 45px;
+  font-weight: 300;
+  position: relative;
+  bottom: 11px;
+}
+.atmospheric-conditions {
+  margin-top: 11px;
+  padding-left: 5px;
+}
+.atmospheric-conditions-list {
+  margin-bottom: 0;
+}
+.forecast {
+  text-align: center;
+  font-size: 15px;
+  line-height: 2;
+}
+.forecast-cards {
+  padding: 0 5px;
+}
+.weather-icon {
+  font-size: 25px;
+}
+.fa-droplet {
+  color: rgb(1, 123, 253);
+}
+.fa-sun {
+  color: rgb(244, 231, 15);
+}
+.forecast-temp {
+  font-size: 12px;
+}
+.today-forecast {
+  background-color: rgba(125, 125, 125, 0.25);
+}
+.host {
+  text-align: right;
+}

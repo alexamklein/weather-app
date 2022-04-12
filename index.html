@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/styles.css" />
+    <script
+      src="https://kit.fontawesome.com/855eac829e.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="weather-app">
+        <div class="row">
+          <form class="input-group" id="search-form">
+            <span class="col-10">
+              <input
+                class="form-control"
+                type="search"
+                placeholder="Search City"
+                autocomplete="off"
+                id="city-input"
+              />
+            </span>
+            <span class="col-1">
+              <button class="btn btn-outline-primary sm" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </span>
+          </form>
+          <span class="col-1 location-button">
+            <button
+              class="btn btn-outline-primary sm"
+              type="submit"
+              id="current-location"
+            >
+              <i class="fa-solid fa-location-dot"></i>
+            </button>
+          </span>
+        </div>
+        <div class="row mb-4">
+          <div class="col-sm">
+            <h1 id="city"></h1>
+            <ul class="local-time-and-weather-description">
+              <li id="local-time">
+                <small></small>
+              </li>
+              <li id="weather-description">
+                <small></small>
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm weather-today">
+            <i class="fa-solid fa-cloud overview-icon"></i>
+            <span>
+              <strong class="local-temperature" id="temperature"></strong>
+              <span class="temp-units">
+                <a href="#" id="celcius-link">°C</a>
+                |
+                <a href="#" id="fahrenheit-link">°F</a>
+              </span>
+              <span class="weather-conditions-divider"> |</span>
+            </span>
+          </div>
+          <div class="col-sm atmospheric-conditions">
+            <ul class="atmospheric-conditions-list">
+              <li>
+                <small>Feels like: <span id="feels-like"></span>°C</small>
+              </li>
+              <li>
+                <small>Humidity: <span id="humidity"></span>%</small>
+              </li>
+              <li>
+                <small>Wind: <span id="wind"></span> km/h</small>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="forecast row mb-4">
+          <div class="col-sm forecast-cards">
+            <div class="card today-forecast">
+              <div class="card-body">
+                <div>Today</div>
+                <i class="fa-solid fa-droplet weather-icon"></i>
+                <div class="forecast-temp">
+                  <strong>19°</strong>
+                  <span>6°</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm forecast-cards">
+            <div>
+              <div class="card-body">
+                <div>Tue</div>
+                <i class="fa-solid fa-sun weather-icon"></i>
+                <div class="forecast-temp">
+                  <strong>6°</strong>
+                  <span>-1°</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm forecast-cards">
+            <div>
+              <div class="card-body">
+                <div>Wed</div>
+                <i class="fa-solid fa-droplet weather-icon"></i>
+                <div class="forecast-temp">
+                  <strong>2°</strong>
+                  <span>-12°</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm forecast-cards">
+            <div>
+              <div class="card-body">
+                <div>Thu</div>
+                <i class="fa-solid fa-cloud weather-icon"></i>
+                <div class="forecast-temp">
+                  <strong>-6°</strong>
+                  <span>-8°</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm forecast-cards">
+            <div>
+              <div class="card-body">
+                <div>Fri</div>
+                <i class="fa-solid fa-cloud weather-icon"></i>
+                <div class="forecast-temp">
+                  <strong>-7°</strong>
+                  <span>-11°</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm forecast-cards">
+            <div>
+              <div class="card-body">
+                <div>Sat</div>
+                <i class="fa-solid fa-sun weather-icon"></i>
+                <div class="forecast-temp">
+                  <strong>2°</strong>
+                  <span>-9°</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm forecast-cards">
+            <div>
+              <div class="card-body">
+                <div>Sun</div>
+                <i class="fa-solid fa-snowflake weather-icon"></i>
+                <div class="forecast-temp">
+                  <strong>-2°</strong>
+                  <span>-9°</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <small class="row">
+            <div class="col-sm">
+              <a href="" target="_blank">Open-source code</a>
+              by
+              <a href="" target="_blank">Alexa Klein</a>
+            </div>
+            <div class="host col-sm">
+              Hosted on
+              <a href="https://www.netlify.com/" target="_blank">Netlify</a>
+            </div>
+          </small>
+        </footer>
+      </div>
+    </div>
+    <script src="src/script.js"></script>
+  </body>
+</html>
