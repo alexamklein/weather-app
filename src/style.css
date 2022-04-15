@@ -3,8 +3,8 @@ body {
 }
 h1 {
   line-height: 1;
-  font-size: 28px;
-  margin-bottom: 6px;
+  font-size: 38px;
+  margin-bottom: 4px;
 }
 ul {
   padding-left: 0;
@@ -29,54 +29,30 @@ footer {
   max-width: 620px;
   padding: 20px 22px;
 }
-.col-1 {
-  padding-left: 0;
-  padding-right: 0;
-}
-.location-button {
-  position: relative;
-  left: 555px;
-  bottom: 38px;
-}
-.local-time-and-weather-description {
-  line-height: 1.2;
-  font-size: 15px;
-}
-.weather-today {
-  text-align: right;
-  padding-right: 0;
-}
 .fa-cloud,
 .fa-snowflake {
   color: rgb(0 0 0 / 35%);
 }
 .overview-icon {
-  font-size: 40px;
+  font-size: 50px;
   position: relative;
-  bottom: 8px;
+  top: 9px;
+  right: 25px;
 }
 .local-temperature {
-  font-size: 55px;
+  line-height: 1;
+  font-size: 60px;
   position: relative;
-  bottom: 4px;
+  top: 4px;
 }
 .temp-units {
-  font-size: 12px;
+  font-size: 14px;
   position: relative;
-  bottom: 35px;
+  bottom: 28px;
 }
-.weather-conditions-divider {
-  font-size: 45px;
-  font-weight: 300;
+.feels-like-temp {
   position: relative;
-  bottom: 11px;
-}
-.atmospheric-conditions {
-  margin-top: 11px;
-  padding-left: 5px;
-}
-.atmospheric-conditions-list {
-  margin-bottom: 0;
+  bottom: 6px;
 }
 .forecast {
   text-align: center;

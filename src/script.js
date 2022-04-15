@@ -1,22 +1,6 @@
 function formatDate(date) {
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  let months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
   let currentDay = days[date.getDay()];
-  let currentMonth = months[date.getMonth()];
-  let currentDate = date.getDate();
   let currentHour = date.getHours();
   if (currentHour < 10) {
     currentHour = `0${currentHour}`;
@@ -25,12 +9,11 @@ function formatDate(date) {
   if (currentMinute < 10) {
     currentMinute = `0${currentMinute}`;
   }
-  return `${currentDay}, ${currentMonth} ${currentDate}, ${currentHour}:${currentMinute}`;
+  return `${currentDay}, ${currentHour}:${currentMinute}`;
 }
 
 function displayWeatherConditions(response) {
   document.querySelector("#city").innerHTML = response.data.name;
-  document.querySelector("#country").innerHTML = response.data.sys.country;
   document.querySelector("#temperature").innerHTML = Math.round(
     response.data.main.temp
   );
