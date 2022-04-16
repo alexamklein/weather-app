@@ -1,3 +1,55 @@
+function displayForecast() {
+  let forecast = document.querySelector("#forecast");
+  let forecastHTML = `<div class="forecast row mb-4">`;
+  forecastHTML =
+    forecastHTML +
+    `
+      <div class="col-sm forecast-cards">
+        <div class="card today-forecast">
+          <div class="card-body">
+            <div>Today</div>
+              <img
+                src="http://openweathermap.org/img/wn/10d@2x.png"
+                alt="rain"
+                class="forecast-icon"
+                id="forecast-weather-icon"
+              />
+              <div class="forecast-temp">
+                <strong>19°</strong>
+                <span>6°</span>
+              </div>
+          </div>
+        </div>
+      </div>
+  `;
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+      <div class="col-sm forecast-cards">
+        <div>
+          <div class="card-body">
+            <div>${day}</div>
+              <img
+                src="http://openweathermap.org/img/wn/01d@2x.png"
+                alt="clear sky"
+                class="forecast-icon"
+                id="forecast-weather-icon"
+              />
+              <div class="forecast-temp">
+                <strong>6°</strong>
+                <span>-1°</span>
+              </div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecast.innerHTML = forecastHTML;
+}
+
 function formatCityTime(date) {
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let cityDay = days[date.getDay()];
@@ -116,3 +168,5 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 displayOnLoad("Toronto");
+
+displayForecast();
