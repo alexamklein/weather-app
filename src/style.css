@@ -49,6 +49,16 @@ footer {
   position: relative;
   bottom: 28px;
 }
+.active {
+  color: rgb(0 0 0);
+  cursor: default;
+}
+
+.active:hover {
+  color: rgb(0 0 0);
+  text-decoration: none;
+}
+
 .feels-like-temp {
   position: relative;
   bottom: 6px;
