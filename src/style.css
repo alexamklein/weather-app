@@ -74,33 +74,6 @@ footer {
   position: relative;
   bottom: 6px;
 }
-.forecast {
-  text-align: center;
-  font-size: 15px;
-  line-height: 2;
-}
-.forecast-cards {
-  padding: 0 5px;
-}
-.weather-icon {
-  font-size: 25px;
-}
-.fa-cloud,
-.fa-snowflake {
-  color: rgb(0 0 0 / 35%);
-}
-.fa-droplet {
-  color: rgb(1, 123, 253);
-}
-.fa-sun {
-  color: rgb(244, 231, 15);
-}
-.forecast-temp {
-  font-size: 12px;
-}
-.today-forecast {
-  background-color: rgba(125, 125, 125, 0.25);
-}
 .host {
   text-align: right;
 }
