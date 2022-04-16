@@ -23,7 +23,7 @@ footer {
   color: rgb(0 0 0 / 35%);
 }
 .container {
-  max-width: 720px;
+  max-width: 760px;
 }
 .weather-app {
   background-color: #fff;
@@ -32,7 +32,7 @@ footer {
   box-shadow: 5px 5px 30px -5px rgb(0 0 0 / 35%);
   font-family: "Jost", sans-serif;
   margin: 100px auto;
-  max-width: 620px;
+  max-width: 660px;
   padding: 20px 22px;
 }
 .search-button,
@@ -82,18 +82,12 @@ footer {
 .forecast-cards {
   padding: 0 5px;
 }
+.forecast-icon {
+  width: 40px;
+  height: auto;
+}
 .weather-icon {
   font-size: 25px;
-}
-.fa-cloud,
-.fa-snowflake {
-  color: rgb(0 0 0 / 35%);
-}
-.fa-droplet {
-  color: rgb(1, 123, 253);
-}
-.fa-sun {
-  color: rgb(244, 231, 15);
 }
 .forecast-temp {
   font-size: 12px;
