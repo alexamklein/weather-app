@@ -1,5 +1,5 @@
 body {
-  background-color: rgba(1, 123, 253, 0.1);
+  background-color: rgba(236, 110, 76, 0.1);
 }
 h1 {
   line-height: 1;
@@ -12,6 +12,12 @@ ul {
 }
 li {
   list-style: none;
+}
+a {
+  color: rgb(236, 110, 76);
+}
+a:hover {
+  color: rgb(204, 94, 67);
 }
 footer {
   color: rgb(0 0 0 / 35%);
@@ -29,9 +35,15 @@ footer {
   max-width: 620px;
   padding: 20px 22px;
 }
-.fa-cloud,
-.fa-snowflake {
-  color: rgb(0 0 0 / 35%);
+.search-button,
+.location-button {
+  color: rgb(236, 110, 76);
+  border-color: rgb(236, 110, 76);
+}
+.search-button:hover,
+.location-button:hover {
+  background-color: rgb(236, 110, 76);
+  border-color: rgb(236, 110, 76);
 }
 .overview-icon {
   position: relative;
@@ -58,7 +70,6 @@ footer {
   color: rgb(0 0 0);
   text-decoration: none;
 }
-
 .feels-like-temp {
   position: relative;
   bottom: 6px;
@@ -73,6 +84,10 @@ footer {
 }
 .weather-icon {
   font-size: 25px;
+}
+.fa-cloud,
+.fa-snowflake {
+  color: rgb(0 0 0 / 35%);
 }
 .fa-droplet {
   color: rgb(1, 123, 253);
