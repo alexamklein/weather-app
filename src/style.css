@@ -34,10 +34,9 @@ footer {
   color: rgb(0 0 0 / 35%);
 }
 .overview-icon {
-  font-size: 50px;
   position: relative;
-  top: 9px;
-  right: 25px;
+  bottom: 10px;
+  right: 40px;
 }
 .local-temperature {
   line-height: 1;
