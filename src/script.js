@@ -36,12 +36,6 @@ function displayWeatherConditions(response) {
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
   );
-  document.querySelector("#temperature").innerHTML = Math.round(
-    response.data.main.temp
-  );
-  document.querySelector("#feels-like").innerHTML = Math.round(
-    response.data.main.feels_like
-  );
   document
     .querySelector("#main-weather-icon")
     .setAttribute(
@@ -51,6 +45,12 @@ function displayWeatherConditions(response) {
   document
     .querySelector("#main-weather-icon")
     .setAttribute("alt", response.data.weather[0].main);
+  document.querySelector("#temperature").innerHTML = Math.round(
+    response.data.main.temp
+  );
+  document.querySelector("#feels-like").innerHTML = Math.round(
+    response.data.main.feels_like
+  );
 }
 
 function displayOnLoad(city) {
