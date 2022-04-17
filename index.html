@@ -33,10 +33,14 @@
               <input
                 class="form-control"
                 type="search"
-                placeholder="Search City"
+                placeholder="Search"
                 autocomplete="off"
                 id="city-input"
               />
+              <small class="form-text text-muted"
+                >Enter city (<em>e.g.</em>, Toronto) or city and 2-letter
+                country code (<em>e.g.</em>, Melbourne, AU).</small
+              >
             </div>
             <div class="col-1 p-0">
               <button
@@ -59,9 +63,7 @@
         </form>
         <div class="row mb-4">
           <div class="col-7">
-            <h1>
-              <span id="city"></span>
-            </h1>
+            <h1><span id="city"></span>, <span id="country-code"></span></h1>
             <ul>
               <li>
                 <small

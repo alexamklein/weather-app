@@ -98,6 +98,7 @@ function getForecast(coordinates) {
 
 function displayWeatherConditions(response) {
   document.querySelector("#city").innerHTML = response.data.name;
+  document.querySelector("#country-code").innerHTML = response.data.sys.country;
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].main;
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
