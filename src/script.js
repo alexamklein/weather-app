@@ -52,7 +52,6 @@ function displayForecast(response) {
                 }@2x.png"
                 alt="clear sky"
                 class="forecast-icon"
-                id="forecast-weather-icon"
               />
               <div class="forecast-temp">
                 <strong>${Math.round(forecastDay.temp.max)}°</strong>
@@ -80,9 +79,8 @@ function displayWeatherConditions(response) {
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].main;
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
-  document.querySelector("#wind").innerHTML = Math.round(
-    response.data.wind.speed
-  );
+  metricWindSpeed = response.data.wind.speed;
+  document.querySelector("#wind").innerHTML = Math.round(metricWindSpeed);
   document
     .querySelector("#main-weather-icon")
     .setAttribute(
@@ -95,9 +93,9 @@ function displayWeatherConditions(response) {
   celsiusTemperature = response.data.main.temp;
   document.querySelector("#temperature").innerHTML =
     Math.round(celsiusTemperature);
-  document.querySelector("#feels-like").innerHTML = Math.round(
-    response.data.main.feels_like
-  );
+  celsiusFeelsLike = response.data.main.feels_like;
+  document.querySelector("#feels-like").innerHTML =
+    Math.round(celsiusFeelsLike);
   getForecast(response.data.coord);
 }
 
@@ -141,6 +139,28 @@ function displayFahrenheitTemperature(event) {
   temperature.innerHTML = Math.round(fahrenheitTemperature);
 }
 
+function displayFahrenheitFeelsLike(event) {
+  event.preventDefault();
+  let feelsLike = document.querySelector("#feels-like");
+  let celsius = document.querySelector("#celsius");
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let fahrenheitFeelsLike = (celsiusFeelsLike * 9) / 5 + 32;
+  feelsLike.innerHTML = `${Math.round(fahrenheitFeelsLike)} °F`;
+  celsius.innerHTML = null;
+}
+
+function displayImperialWindSpeed(event) {
+  event.preventDefault();
+  let windSpeed = document.querySelector("#wind");
+  let kmH = document.querySelector("#metric-wind-speed");
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let imperialWindSpeed = metricWindSpeed / 1.609;
+  windSpeed.innerHTML = `${Math.round(imperialWindSpeed)} mph`;
+  kmH.innerHTML = null;
+}
+
 function displayCelsiusTemperature(event) {
   event.preventDefault();
   let temperature = document.querySelector("#temperature");
@@ -149,7 +169,25 @@ function displayCelsiusTemperature(event) {
   temperature.innerHTML = Math.round(celsiusTemperature);
 }
 
-let celsiusTemperature = null;
+function displayCelsiusFeelsLike(event) {
+  event.preventDefault();
+  let feelsLike = document.querySelector("#feels-like");
+  let celsius = document.querySelector("#celsius");
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  feelsLike.innerHTML = Math.round(celsiusFeelsLike);
+  celsius.innerHTML = " °C";
+}
+
+function displayMetricWindSpeed(event) {
+  event.preventDefault();
+  let windSpeed = document.querySelector("#wind");
+  let kmH = document.querySelector("#metric-wind-speed");
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  windSpeed.innerHTML = Math.round(metricWindSpeed);
+  kmH.innerHTML = " km/h";
+}
 
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", searchCity);
@@ -157,10 +195,18 @@ searchForm.addEventListener("submit", searchCity);
 let currentLocationButton = document.querySelector("#current-location");
 currentLocationButton.addEventListener("click", getCurrentLocation);
 
+let celsiusTemperature = null;
+let celsiusFeelsLike = null;
+let metricWindSpeed = null;
+
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+fahrenheitLink.addEventListener("click", displayFahrenheitFeelsLike);
+fahrenheitLink.addEventListener("click", displayImperialWindSpeed);
 
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
+celsiusLink.addEventListener("click", displayCelsiusFeelsLike);
+celsiusLink.addEventListener("click", displayMetricWindSpeed);
 
 displayOnLoad("Toronto");
