@@ -63,20 +63,19 @@
         </form>
         <div class="row mb-4">
           <div class="col-7">
-            <h1><span id="city"></span>, <span id="country-code"></span></h1>
+            <h1><span id="city"></span><span id="country-code"></span></h1>
             <ul>
               <li>
                 <small
-                  ><span id="day-time"></span><span>, </span
+                  ><span id="day-time"></span><span></span
                   ><span id="weather-description"></span
                 ></small>
               </li>
               <li>
                 <small
-                  >Humidity: <span id="humidity"></span>%, Wind:
-                  <span id="wind"></span
-                  ><span id="metric-wind-speed"> km/h</span></small
-                >
+                  ><span id="humidity"></span
+                  ><span id="humidity-percentage"></span><span id="wind"></span
+                ></small>
               </li>
             </ul>
           </div>
@@ -87,16 +86,13 @@
             <div>
               <strong class="local-temperature" id="temperature"></strong>
               <span class="temp-units">
-                <a href="" class="active" id="celsius-link">°C</a>
-                |
-                <a href="" id="fahrenheit-link">°F</a>
+                <a href="" class="active" id="celsius-link"></a>
+                <span id="unit-divider"></span>
+                <a href="" id="fahrenheit-link"></a>
               </span>
             </div>
             <div class="feels-like-temp">
-              <small
-                >Feels like: <span id="feels-like"></span
-                ><span id="celsius"> °C</span></small
-              >
+              <small><span id="feels-like"></span></small>
             </div>
           </div>
         </div>

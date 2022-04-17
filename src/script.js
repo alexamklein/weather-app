@@ -16,7 +16,7 @@ function formatCityTime(date) {
   } else {
     amPm = "PM";
   }
-  return `${cityDay}, ${cityHour}:${cityMinute} ${amPm}`;
+  return `${cityDay}, ${cityHour}:${cityMinute} ${amPm}, `;
 }
 
 function getCityTime(response) {
@@ -97,13 +97,17 @@ function getForecast(coordinates) {
 }
 
 function displayWeatherConditions(response) {
-  document.querySelector("#city").innerHTML = response.data.name;
+  document.querySelector("#city").innerHTML = `${response.data.name}, `;
   document.querySelector("#country-code").innerHTML = response.data.sys.country;
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].main;
-  document.querySelector("#humidity").innerHTML = response.data.main.humidity;
+  document.querySelector(
+    "#humidity"
+  ).innerHTML = `Humidity: ${response.data.main.humidity}%, `;
   metricWindSpeed = response.data.wind.speed * 3.6;
-  document.querySelector("#wind").innerHTML = Math.round(metricWindSpeed);
+  document.querySelector("#wind").innerHTML = `Wind: ${Math.round(
+    metricWindSpeed
+  )} km/h`;
   document
     .querySelector("#main-weather-icon")
     .setAttribute(
@@ -116,13 +120,17 @@ function displayWeatherConditions(response) {
   celsiusTemperature = response.data.main.temp;
   document.querySelector("#temperature").innerHTML =
     Math.round(celsiusTemperature);
+  document.querySelector("#celsius-link").innerHTML = "°C";
+  document.querySelector("#unit-divider").innerHTML = "|";
+  document.querySelector("#fahrenheit-link").innerHTML = "°F";
   celsiusFeelsLike = response.data.main.feels_like;
-  document.querySelector("#feels-like").innerHTML =
-    Math.round(celsiusFeelsLike);
+  document.querySelector("#feels-like").innerHTML = `Feels like: ${Math.round(
+    celsiusFeelsLike
+  )} °C`;
   getForecast(response.data.coord);
 }
 
-function displayOnLoad(city) {
+function displayCity(city) {
   let units = "metric";
   let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
   let apiKey = "6f7fc1e8921ca5e8743c4596d4b381f9";
@@ -134,7 +142,7 @@ function displayOnLoad(city) {
 function searchCity(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
-  displayOnLoad(city);
+  displayCity(city);
 }
 
 function searchCurrentLocation(position) {
@@ -169,19 +177,16 @@ function displayFahrenheitFeelsLike(event) {
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   let fahrenheitFeelsLike = (celsiusFeelsLike * 9) / 5 + 32;
-  feelsLike.innerHTML = `${Math.round(fahrenheitFeelsLike)} °F`;
-  celsius.innerHTML = null;
+  feelsLike.innerHTML = `Feels like: ${Math.round(fahrenheitFeelsLike)} °F`;
 }
 
 function displayImperialWindSpeed(event) {
   event.preventDefault();
   let windSpeed = document.querySelector("#wind");
-  let kmH = document.querySelector("#metric-wind-speed");
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   let imperialWindSpeed = metricWindSpeed / 1.609;
-  windSpeed.innerHTML = `${Math.round(imperialWindSpeed)} mph`;
-  kmH.innerHTML = null;
+  windSpeed.innerHTML = `Wind: ${Math.round(imperialWindSpeed)} mph`;
 }
 
 function displayCelsiusTemperature(event) {
@@ -195,21 +200,17 @@ function displayCelsiusTemperature(event) {
 function displayCelsiusFeelsLike(event) {
   event.preventDefault();
   let feelsLike = document.querySelector("#feels-like");
-  let celsius = document.querySelector("#celsius");
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
-  feelsLike.innerHTML = Math.round(celsiusFeelsLike);
-  celsius.innerHTML = " °C";
+  feelsLike.innerHTML = `Feels like: ${Math.round(celsiusFeelsLike)} °C`;
 }
 
 function displayMetricWindSpeed(event) {
   event.preventDefault();
   let windSpeed = document.querySelector("#wind");
-  let kmH = document.querySelector("#metric-wind-speed");
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
-  windSpeed.innerHTML = Math.round(metricWindSpeed);
-  kmH.innerHTML = " km/h";
+  windSpeed.innerHTML = `Wind: ${Math.round(metricWindSpeed)} km/h`;
 }
 
 let searchForm = document.querySelector("#search-form");
@@ -232,4 +233,4 @@ celsiusLink.addEventListener("click", displayCelsiusTemperature);
 celsiusLink.addEventListener("click", displayCelsiusFeelsLike);
 celsiusLink.addEventListener("click", displayMetricWindSpeed);
 
-displayOnLoad("Toronto");
+window.onload = getCurrentLocation;
