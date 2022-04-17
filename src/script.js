@@ -79,7 +79,7 @@ function displayWeatherConditions(response) {
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].main;
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
-  metricWindSpeed = response.data.wind.speed;
+  metricWindSpeed = response.data.wind.speed * 3.6;
   document.querySelector("#wind").innerHTML = Math.round(metricWindSpeed);
   document
     .querySelector("#main-weather-icon")
