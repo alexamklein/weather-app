@@ -29,7 +29,6 @@ function getCityTime(response) {
 }
 
 function displayForecast(response) {
-  let forecastDisplay = document.querySelector("#forecast");
   let forecast = response.data.daily;
   let timezoneOffset = response.data.timezone_offset * 1000;
   let forecastHTML = `<div class="forecast row mb-4">`;
@@ -86,7 +85,7 @@ function displayForecast(response) {
     }
   });
   forecastHTML = forecastHTML + `</div>`;
-  forecastDisplay.innerHTML = forecastHTML;
+  document.querySelector("#forecast").innerHTML = forecastHTML;
 }
 
 function getForecast(coordinates) {
@@ -163,54 +162,58 @@ function getCurrentLocation(event) {
 
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
-  let temperature = document.querySelector("#temperature");
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  temperature.innerHTML = Math.round(fahrenheitTemperature);
+  document.querySelector("#temperature").innerHTML = Math.round(
+    fahrenheitTemperature
+  );
 }
 
 function displayFahrenheitFeelsLike(event) {
   event.preventDefault();
-  let feelsLike = document.querySelector("#feels-like");
-  let celsius = document.querySelector("#celsius");
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   let fahrenheitFeelsLike = (celsiusFeelsLike * 9) / 5 + 32;
-  feelsLike.innerHTML = `Feels like: ${Math.round(fahrenheitFeelsLike)} °F`;
+  document.querySelector("#feels-like").innerHTML = `Feels like: ${Math.round(
+    fahrenheitFeelsLike
+  )} °F`;
 }
 
 function displayImperialWindSpeed(event) {
   event.preventDefault();
-  let windSpeed = document.querySelector("#wind");
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   let imperialWindSpeed = metricWindSpeed / 1.609;
-  windSpeed.innerHTML = `Wind: ${Math.round(imperialWindSpeed)} mph`;
+  document.querySelector("#wind").innerHTML = `Wind: ${Math.round(
+    imperialWindSpeed
+  )} mph`;
 }
 
 function displayCelsiusTemperature(event) {
   event.preventDefault();
-  let temperature = document.querySelector("#temperature");
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
-  temperature.innerHTML = Math.round(celsiusTemperature);
+  document.querySelector("#temperature").innerHTML =
+    Math.round(celsiusTemperature);
 }
 
 function displayCelsiusFeelsLike(event) {
   event.preventDefault();
-  let feelsLike = document.querySelector("#feels-like");
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
-  feelsLike.innerHTML = `Feels like: ${Math.round(celsiusFeelsLike)} °C`;
+  document.querySelector("#feels-like").innerHTML = `Feels like: ${Math.round(
+    celsiusFeelsLike
+  )} °C`;
 }
 
 function displayMetricWindSpeed(event) {
   event.preventDefault();
-  let windSpeed = document.querySelector("#wind");
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
-  windSpeed.innerHTML = `Wind: ${Math.round(metricWindSpeed)} km/h`;
+  document.querySelector("#wind").innerHTML = `Wind: ${Math.round(
+    metricWindSpeed
+  )} km/h`;
 }
 
 let searchForm = document.querySelector("#search-form");
