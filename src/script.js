@@ -1,55 +1,3 @@
-function displayForecast() {
-  let forecast = document.querySelector("#forecast");
-  let forecastHTML = `<div class="forecast row mb-4">`;
-  forecastHTML =
-    forecastHTML +
-    `
-      <div class="col-sm forecast-cards">
-        <div class="card today-forecast">
-          <div class="card-body">
-            <div>Today</div>
-              <img
-                src="http://openweathermap.org/img/wn/10d@2x.png"
-                alt="rain"
-                class="forecast-icon"
-                id="forecast-weather-icon"
-              />
-              <div class="forecast-temp">
-                <strong>19°</strong>
-                <span>6°</span>
-              </div>
-          </div>
-        </div>
-      </div>
-  `;
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
-      <div class="col-sm forecast-cards">
-        <div>
-          <div class="card-body">
-            <div>${day}</div>
-              <img
-                src="http://openweathermap.org/img/wn/01d@2x.png"
-                alt="clear sky"
-                class="forecast-icon"
-                id="forecast-weather-icon"
-              />
-              <div class="forecast-temp">
-                <strong>6°</strong>
-                <span>-1°</span>
-              </div>
-          </div>
-        </div>
-      </div>
-    `;
-  });
-  forecastHTML = forecastHTML + `</div>`;
-  forecast.innerHTML = forecastHTML;
-}
-
 function formatCityTime(date) {
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let cityDay = days[date.getDay()];
@@ -75,9 +23,56 @@ function getCityTime(response) {
   let localTime = new Date(response.data.dt * 1000);
   let utcOffset = localTime.getTimezoneOffset() * 60000;
   let utcTime = response.data.dt * 1000 + utcOffset;
-  let cityTimeStamp = utcTime + response.data.timezone * 1000;
-  let cityTime = new Date(cityTimeStamp);
+  let cityTimestamp = utcTime + response.data.timezone * 1000;
+  let cityTime = new Date(cityTimestamp);
   document.querySelector("#day-time").innerHTML = formatCityTime(cityTime);
+}
+
+function formatForecastDays(timestamp) {
+  let day = new Date(timestamp * 1000);
+  let days = day.getDay();
+  let forecastDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return forecastDays[days];
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+  let forecastDisplay = document.querySelector("#forecast");
+  let forecastHTML = `<div class="forecast row mb-4">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 7) {
+      forecastHTML += `
+      <div class="col-sm forecast-cards">
+        <div>
+          <div class="card-body">
+            <div>${formatForecastDays(forecastDay.dt)}</div>
+              <img
+                src="http://openweathermap.org/img/wn/${
+                  forecastDay.weather[0].icon
+                }@2x.png"
+                alt="clear sky"
+                class="forecast-icon"
+                id="forecast-weather-icon"
+              />
+              <div class="forecast-temp">
+                <strong>${Math.round(forecastDay.temp.max)}°</strong>
+                <span>${Math.round(forecastDay.temp.min)}°</span>
+              </div>
+          </div>
+        </div>
+      </div>
+    `;
+    }
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastDisplay.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+  let units = "metric";
+  let apiKey = "6f7fc1e8921ca5e8743c4596d4b381f9";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function displayWeatherConditions(response) {
@@ -103,6 +98,7 @@ function displayWeatherConditions(response) {
   document.querySelector("#feels-like").innerHTML = Math.round(
     response.data.main.feels_like
   );
+  getForecast(response.data.coord);
 }
 
 function displayOnLoad(city) {
@@ -168,5 +164,3 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 displayOnLoad("Toronto");
-
-displayForecast();

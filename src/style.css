@@ -89,9 +89,6 @@ footer {
 .forecast-temp {
   font-size: 12px;
 }
-.today-forecast {
-  background-color: rgba(125, 125, 125, 0.25);
-}
 .host {
   text-align: right;
 }
