@@ -89,9 +89,8 @@ function displayForecast(response) {
 }
 
 function getForecast(coordinates) {
-  let units = "metric";
-  let apiKey = "6f7fc1e8921ca5e8743c4596d4b381f9";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
+  let apiEndpoint = "https://api.openweathermap.org/data/2.5/onecall";
+  let apiUrl = `${apiEndpoint}?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${unit}`;
   axios.get(apiUrl).then(displayForecast);
 }
 
@@ -130,10 +129,8 @@ function displayWeatherConditions(response) {
 }
 
 function displayCity(city) {
-  let units = "metric";
   let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
-  let apiKey = "6f7fc1e8921ca5e8743c4596d4b381f9";
-  let apiUrl = `${apiEndpoint}?q=${city}&appid=${apiKey}&units=${units}`;
+  let apiUrl = `${apiEndpoint}?q=${city}&appid=${apiKey}&units=${unit}`;
   axios.get(`${apiUrl}`).then(getCityTime);
   axios.get(`${apiUrl}`).then(displayWeatherConditions);
 }
@@ -147,10 +144,8 @@ function searchCity(event) {
 function searchCurrentLocation(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-  let units = "metric";
   let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
-  let apiKey = "6f7fc1e8921ca5e8743c4596d4b381f9";
-  let apiUrl = `${apiEndpoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
+  let apiUrl = `${apiEndpoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${unit}`;
   axios.get(`${apiUrl}`).then(getCityTime);
   axios.get(`${apiUrl}`).then(displayWeatherConditions);
 }
@@ -222,10 +217,6 @@ searchForm.addEventListener("submit", searchCity);
 let currentLocationButton = document.querySelector("#current-location");
 currentLocationButton.addEventListener("click", getCurrentLocation);
 
-let celsiusTemperature = null;
-let celsiusFeelsLike = null;
-let metricWindSpeed = null;
-
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 fahrenheitLink.addEventListener("click", displayFahrenheitFeelsLike);
@@ -235,5 +226,11 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 celsiusLink.addEventListener("click", displayCelsiusFeelsLike);
 celsiusLink.addEventListener("click", displayMetricWindSpeed);
+
+let apiKey = "6f7fc1e8921ca5e8743c4596d4b381f9";
+let unit = "metric";
+let celsiusTemperature = null;
+let celsiusFeelsLike = null;
+let metricWindSpeed = null;
 
 window.onload = getCurrentLocation;
