@@ -10,8 +10,8 @@ function formatCityTime(date) {
   if (cityMinute < 10) {
     cityMinute = `0${cityMinute}`;
   }
-  let militaryHour = date.getHours();
-  if (militaryHour < 12) {
+  let militaryTime = date.getHours();
+  if (militaryTime < 12) {
     amPm = "AM";
   } else {
     amPm = "PM";
@@ -54,12 +54,8 @@ function displayForecast(response) {
                 class="forecast-icon"
               />
               <div class="forecast-temp">
-                <strong id=today-max${index}>${Math.round(
-        forecastDay.temp.max
-      )}°</strong>
-                <span id=today-min${index}>${Math.round(
-        forecastDay.temp.min
-      )}°</span>
+                <strong>${Math.round(forecastDay.temp.max)}°</strong>
+                <span>${Math.round(forecastDay.temp.min)}°</span>
               </div>
           </div>
         </div>
@@ -79,10 +75,8 @@ function displayForecast(response) {
                 class="forecast-icon"
               />
               <div class="forecast-temp">
-                <strong id=max${index}>${Math.round(
-        forecastDay.temp.max
-      )}°</strong>
-                <span id=min${index}>${Math.round(forecastDay.temp.min)}°</span>
+                <strong>${Math.round(forecastDay.temp.max)}°</strong>
+                <span>${Math.round(forecastDay.temp.min)}°</span>
               </div>
           </div>
         </div>
@@ -92,18 +86,6 @@ function displayForecast(response) {
   });
   forecastHTML = forecastHTML + `</div>`;
   document.querySelector("#forecast").innerHTML = forecastHTML;
-  forecast.forEach(function (forecastDay, index) {
-    if (index == 0) {
-      forecastMax[index] = Math.round(forecastDay.temp.max);
-      forecastMin[index] = Math.round(forecastDay.temp.min);
-    }
-  });
-  forecast.forEach(function (forecastDay, index) {
-    if (index > 0 && index < 7) {
-      forecastMax[index] = Math.round(forecastDay.temp.max);
-      forecastMin[index] = Math.round(forecastDay.temp.min);
-    }
-  });
 }
 
 function getForecast(coordinates) {
@@ -147,7 +129,6 @@ function displayWeatherConditions(response) {
 }
 
 function displayCity(city) {
-  let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
   let apiUrl = `${apiEndpoint}?q=${city}&appid=${apiKey}&units=${unit}`;
   axios.get(`${apiUrl}`).then(getCityTime);
   axios.get(`${apiUrl}`).then(displayWeatherConditions);
@@ -162,7 +143,6 @@ function searchCity(event) {
 function searchCurrentLocation(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-  let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
   let apiUrl = `${apiEndpoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${unit}`;
   axios.get(`${apiUrl}`).then(getCityTime);
   axios.get(`${apiUrl}`).then(displayWeatherConditions);
@@ -189,26 +169,25 @@ function displayFahrenheit(event) {
   document.querySelector("#wind").innerHTML = `Wind: ${Math.round(
     imperialWindSpeed
   )} mph`;
-  forecastMax.forEach(function (element, index) {
-    document.querySelector(`#today-max${index}`).innerHTML = `${Math.round(
-      (element * 9) / 5 + 32
-    )}°`;
-  });
-  forecastMin.forEach(function (element, index) {
-    document.querySelector(`#today-min${index}`).innerHTML = `${Math.round(
-      (element * 9) / 5 + 32
-    )}°`;
-  });
-  forecastMax.forEach(function (element, index) {
-    document.querySelector(`#max${index}`).innerHTML = `${Math.round(
-      (element * 9) / 5 + 32
-    )}°`;
-  });
-  forecastMin.forEach(function (element, index) {
-    document.querySelector(`#min${index}`).innerHTML = `${Math.round(
-      (element * 9) / 5 + 32
-    )}°`;
-  });
+}
+
+function getFahreinheitForecast(coordinates) {
+  let apiEndpoint = "https://api.openweathermap.org/data/2.5/onecall";
+  let apiUrl = `${apiEndpoint}?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
+function getCityCoordinates(response) {
+  getFahreinheitForecast(response.data.coord);
+}
+
+function getCity(event) {
+  event.preventDefault();
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let city = document.querySelector("#city").innerHTML;
+  let apiUrl = `${apiEndpoint}?q=${city}&appid=${apiKey}`;
+  axios.get(`${apiUrl}`).then(getCityCoordinates);
 }
 
 function displayCelsius(event) {
@@ -223,18 +202,19 @@ function displayCelsius(event) {
   document.querySelector("#wind").innerHTML = `Wind: ${Math.round(
     metricWindSpeed
   )} km/h`;
-  forecastMax.forEach(function (element, index) {
-    document.querySelector(`#today-max${index}`).innerHTML = `${element}°`;
-  });
-  forecastMin.forEach(function (element, index) {
-    document.querySelector(`#today-min${index}`).innerHTML = `${element}°`;
-  });
-  forecastMax.forEach(function (element, index) {
-    document.querySelector(`#max${index}`).innerHTML = `${element}°`;
-  });
-  forecastMin.forEach(function (element, index) {
-    document.querySelector(`#today-min${index}`).innerHTML = `${element}°`;
-  });
+}
+
+function getCelsiusForecast(response) {
+  getForecast(response.data.coord);
+}
+
+function toggleForecast(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let city = document.querySelector("#city").innerHTML;
+  let apiUrl = `${apiEndpoint}?q=${city}&appid=${apiKey}`;
+  axios.get(`${apiUrl}`).then(getCelsiusForecast);
 }
 
 let searchForm = document.querySelector("#search-form");
@@ -245,16 +225,18 @@ currentLocationButton.addEventListener("click", getCurrentLocation);
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheit);
+fahrenheitLink.addEventListener("click", getCity);
 
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsius);
+celsiusLink.addEventListener("click", toggleForecast);
 
-let apiKey = "6f7fc1e8921ca5e8743c4596d4b381f9";
-let unit = "metric";
 let celsiusTemperature = null;
 let celsiusFeelsLike = null;
 let metricWindSpeed = null;
-let forecastMax = ["", "", "", "", "", "", ""];
-let forecastMin = ["", "", "", "", "", "", ""];
+
+let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
+let apiKey = "6f7fc1e8921ca5e8743c4596d4b381f9";
+let unit = "metric";
 
 window.onload = getCurrentLocation;
