@@ -54,8 +54,12 @@ function displayForecast(response) {
                 class="forecast-icon"
               />
               <div class="forecast-temp">
-                <strong>${Math.round(forecastDay.temp.max)}°</strong>
-                <span>${Math.round(forecastDay.temp.min)}°</span>
+                <strong id=today-max${index}>${Math.round(
+        forecastDay.temp.max
+      )}°</strong>
+                <span id=today-min${index}>${Math.round(
+        forecastDay.temp.min
+      )}°</span>
               </div>
           </div>
         </div>
@@ -75,8 +79,10 @@ function displayForecast(response) {
                 class="forecast-icon"
               />
               <div class="forecast-temp">
-                <strong>${Math.round(forecastDay.temp.max)}°</strong>
-                <span>${Math.round(forecastDay.temp.min)}°</span>
+                <strong id=max${index}>${Math.round(
+        forecastDay.temp.max
+      )}°</strong>
+                <span id=min${index}>${Math.round(forecastDay.temp.min)}°</span>
               </div>
           </div>
         </div>
@@ -86,6 +92,18 @@ function displayForecast(response) {
   });
   forecastHTML = forecastHTML + `</div>`;
   document.querySelector("#forecast").innerHTML = forecastHTML;
+  forecast.forEach(function (forecastDay, index) {
+    if (index == 0) {
+      forecastMax[index] = Math.round(forecastDay.temp.max);
+      forecastMin[index] = Math.round(forecastDay.temp.min);
+    }
+  });
+  forecast.forEach(function (forecastDay, index) {
+    if (index > 0 && index < 7) {
+      forecastMax[index] = Math.round(forecastDay.temp.max);
+      forecastMin[index] = Math.round(forecastDay.temp.min);
+    }
+  });
 }
 
 function getForecast(coordinates) {
@@ -155,60 +173,68 @@ function getCurrentLocation(event) {
   navigator.geolocation.getCurrentPosition(searchCurrentLocation);
 }
 
-function displayFahrenheitTemperature(event) {
+function displayFahrenheit(event) {
   event.preventDefault();
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  let fahrenheitFeelsLike = (celsiusFeelsLike * 9) / 5 + 32;
+  let imperialWindSpeed = metricWindSpeed / 1.609;
   document.querySelector("#temperature").innerHTML = Math.round(
     fahrenheitTemperature
   );
-}
-
-function displayFahrenheitFeelsLike(event) {
-  event.preventDefault();
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  let fahrenheitFeelsLike = (celsiusFeelsLike * 9) / 5 + 32;
   document.querySelector("#feels-like").innerHTML = `Feels like: ${Math.round(
     fahrenheitFeelsLike
   )} °F`;
-}
-
-function displayImperialWindSpeed(event) {
-  event.preventDefault();
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  let imperialWindSpeed = metricWindSpeed / 1.609;
   document.querySelector("#wind").innerHTML = `Wind: ${Math.round(
     imperialWindSpeed
   )} mph`;
+  forecastMax.forEach(function (element, index) {
+    document.querySelector(`#today-max${index}`).innerHTML = `${Math.round(
+      (element * 9) / 5 + 32
+    )}°`;
+  });
+  forecastMin.forEach(function (element, index) {
+    document.querySelector(`#today-min${index}`).innerHTML = `${Math.round(
+      (element * 9) / 5 + 32
+    )}°`;
+  });
+  forecastMax.forEach(function (element, index) {
+    document.querySelector(`#max${index}`).innerHTML = `${Math.round(
+      (element * 9) / 5 + 32
+    )}°`;
+  });
+  forecastMin.forEach(function (element, index) {
+    document.querySelector(`#min${index}`).innerHTML = `${Math.round(
+      (element * 9) / 5 + 32
+    )}°`;
+  });
 }
 
-function displayCelsiusTemperature(event) {
+function displayCelsius(event) {
   event.preventDefault();
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
   document.querySelector("#temperature").innerHTML =
     Math.round(celsiusTemperature);
-}
-
-function displayCelsiusFeelsLike(event) {
-  event.preventDefault();
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
   document.querySelector("#feels-like").innerHTML = `Feels like: ${Math.round(
     celsiusFeelsLike
   )} °C`;
-}
-
-function displayMetricWindSpeed(event) {
-  event.preventDefault();
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
   document.querySelector("#wind").innerHTML = `Wind: ${Math.round(
     metricWindSpeed
   )} km/h`;
+  forecastMax.forEach(function (element, index) {
+    document.querySelector(`#today-max${index}`).innerHTML = `${element}°`;
+  });
+  forecastMin.forEach(function (element, index) {
+    document.querySelector(`#today-min${index}`).innerHTML = `${element}°`;
+  });
+  forecastMax.forEach(function (element, index) {
+    document.querySelector(`#max${index}`).innerHTML = `${element}°`;
+  });
+  forecastMin.forEach(function (element, index) {
+    document.querySelector(`#today-min${index}`).innerHTML = `${element}°`;
+  });
 }
 
 let searchForm = document.querySelector("#search-form");
@@ -218,19 +244,17 @@ let currentLocationButton = document.querySelector("#current-location");
 currentLocationButton.addEventListener("click", getCurrentLocation);
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
-fahrenheitLink.addEventListener("click", displayFahrenheitFeelsLike);
-fahrenheitLink.addEventListener("click", displayImperialWindSpeed);
+fahrenheitLink.addEventListener("click", displayFahrenheit);
 
 let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
-celsiusLink.addEventListener("click", displayCelsiusFeelsLike);
-celsiusLink.addEventListener("click", displayMetricWindSpeed);
+celsiusLink.addEventListener("click", displayCelsius);
 
 let apiKey = "6f7fc1e8921ca5e8743c4596d4b381f9";
 let unit = "metric";
 let celsiusTemperature = null;
 let celsiusFeelsLike = null;
 let metricWindSpeed = null;
+let forecastMax = ["", "", "", "", "", "", ""];
+let forecastMin = ["", "", "", "", "", "", ""];
 
 window.onload = getCurrentLocation;
