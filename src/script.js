@@ -132,8 +132,20 @@ function displayWeatherConditions(response) {
 
 function displayCity(city) {
   let apiUrl = `${apiEndpoint}?q=${city}&appid=${apiKey}&units=${unit}`;
-  axios.get(`${apiUrl}`).then(getCityTime);
-  axios.get(`${apiUrl}`).then(displayWeatherConditions);
+  fetch(apiUrl).then(function (response) {
+    if (response.status == 200) {
+      axios.get(`${apiUrl}`).then(getCityTime);
+      axios.get(`${apiUrl}`).then(displayWeatherConditions);
+    } else {
+      alert(
+        `Please make sure that the city name you entered is spelled correctly and, if entered, that the 2-letter country code is correct.
+        
+This app obtains its weather data from OpenWeather; if you entered the city and country code correctly, this city is unfortunately not part of OpenWeather's list of over 200,000 cities.
+        
+Visit openweathermap.org for more information.`
+      );
+    }
+  });
 }
 
 function searchCity(event) {
