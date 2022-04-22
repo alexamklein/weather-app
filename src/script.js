@@ -140,7 +140,7 @@ function displayCity(city) {
       alert(
         `Please make sure that the city name you entered is spelled correctly and, if entered, that the 2-letter country code is correct.
         
-This app obtains its weather data from OpenWeather; if you entered the city and country code correctly, this city is unfortunately not part of OpenWeather's list of over 200,000 cities.
+This app obtains its weather data from OpenWeather; if you entered the city and, if entered, country code correctly, this city is unfortunately not part of OpenWeather's list of over 200,000 cities.
         
 Visit openweathermap.org for more information.`
       );
