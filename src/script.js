@@ -121,8 +121,8 @@ function displayWeatherConditions(response) {
   document.querySelector("#celsius-link").innerHTML = "°C";
   celsiusLink.classList.add("active");
   document.querySelector("#unit-divider").innerHTML = "|";
-  fahrenheitLink.classList.remove("active");
   document.querySelector("#fahrenheit-link").innerHTML = "°F";
+  fahrenheitLink.classList.remove("active");
   celsiusFeelsLike = response.data.main.feels_like;
   document.querySelector("#feels-like").innerHTML = `Feels like: ${Math.round(
     celsiusFeelsLike
