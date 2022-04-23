@@ -86,10 +86,7 @@ footer {
   width: 40px;
   height: auto;
 }
-.forecast-temp {
-  font-size: 12px;
-}
-.precipitation {
+.forecast-temp .precipitation {
   font-size: 12px;
 }
 .today-forecast {
