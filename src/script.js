@@ -41,6 +41,7 @@ function displayForecast(response) {
     let cityDay = cityTime.getDay();
     let forecastDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     let cityDays = forecastDays[cityDay];
+    let precipitation = forecastDay.pop * 100;
     if (index == 0) {
       forecastHTML += `<div class="col-sm forecast-cards">
         <div class="card today-forecast">
@@ -56,6 +57,10 @@ function displayForecast(response) {
               <div class="forecast-temp">
                 <strong>${Math.round(forecastDay.temp.max)}°</strong>
                 <span>${Math.round(forecastDay.temp.min)}°</span>
+              </div>
+              <div class="precipitation">
+                <i class="fa-solid fa-umbrella"></i>
+                <span>${Math.round(precipitation)}%</span>
               </div>
           </div>
         </div>
@@ -77,6 +82,10 @@ function displayForecast(response) {
               <div class="forecast-temp">
                 <strong>${Math.round(forecastDay.temp.max)}°</strong>
                 <span>${Math.round(forecastDay.temp.min)}°</span>
+              </div>
+              <div class="precipitation">
+                <i class="fa-solid fa-umbrella"></i>
+                <span>${Math.round(precipitation)}%</span>
               </div>
           </div>
         </div>

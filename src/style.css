@@ -23,7 +23,7 @@ footer {
   color: rgb(0 0 0 / 35%);
 }
 .container {
-  max-width: 785px;
+  max-width: 805px;
 }
 .weather-app {
   background-color: #fff;
@@ -32,7 +32,7 @@ footer {
   box-shadow: 5px 5px 30px -5px rgb(0 0 0 / 35%);
   font-family: "Jost", sans-serif;
   margin: 100px auto;
-  max-width: 685px;
+  max-width: 705px;
   padding: 20px 22px;
 }
 .search-button,
@@ -87,6 +87,9 @@ footer {
   height: auto;
 }
 .forecast-temp {
+  font-size: 12px;
+}
+.precipitation {
   font-size: 12px;
 }
 .today-forecast {
